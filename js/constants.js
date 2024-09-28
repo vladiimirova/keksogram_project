@@ -18,7 +18,7 @@ export const messages = [
 
 export const comments = {
     min: 1,
-    max: 10
+    max: 15
 };
 
 export const avatar = {
