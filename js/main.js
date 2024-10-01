@@ -11,6 +11,15 @@ import {
 import { getRandomNumber, getRandomEl } from "./utils.js";
 import { generateAllMiniatures } from "./miniature.js";
 import { showBigPicture, closePicture } from "./full-size.js";
+import { showImgForm, closeImgForm, doAllValidation } from "./form-check.js";
+
+const fileInput = document.querySelector('#upload-file');
+const imgUploadCancel = document.querySelector('.img-upload__cancel');
+const hashtagsInput = document.querySelector('.text__hashtags'); 
+const commentsInput = document.querySelector('.text__description');
+const imgUploadForm = document.querySelector('.img-upload__form');
+const pictures = document.querySelector(".pictures");
+const bigPicture = document.querySelector(".big-picture");
 
 function getAvatar() {
   return `img/avatar-${getRandomNumber(avatar.min, avatar.max)}.svg`;
@@ -27,7 +36,6 @@ function generateComment() {
 
 function generateComments() {
   const commentsValue = getRandomNumber(comments.min, comments.max);
-
   return Array(commentsValue).fill(null).map(generateComment);
 }
 
@@ -48,18 +56,13 @@ photosArr.forEach((_, i) => {
 
 console.log(JSON.stringify(photosArr, null, 2));
 
-const pictures = document.querySelector(".pictures");
 const fragment = document.createDocumentFragment();
-
 generateAllMiniatures(photosArr).forEach((miniature) => {
   fragment.appendChild(miniature);
 });
-
 pictures.appendChild(fragment);
 
-const pictureSection = document.querySelector(".pictures");
-
-pictureSection.addEventListener("click", (e) => {
+pictures.addEventListener("click", (e) => {
   const id = +e.target.dataset.id;
   const selectedPhoto = photosArr.find((photo) => photo.id === id);
   if (selectedPhoto) {
@@ -67,15 +70,38 @@ pictureSection.addEventListener("click", (e) => {
   }
 });
 
-const bigPicture = document.querySelector(".big-picture");
-
 const closeButton = bigPicture.querySelector(".big-picture__cancel");
-closeButton.addEventListener("click", (e) => {
-  closePicture();
-});
+closeButton.addEventListener("click", closePicture);
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closePicture();
   }
 });
+
+fileInput.addEventListener('change', () => {
+  if (fileInput.files.length > 0) {
+      showImgForm();  
+  }
+});
+
+imgUploadCancel.addEventListener("click", closeImgForm);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (document.activeElement !== hashtagsInput && document.activeElement !== commentsInput) {
+      closeImgForm(); 
+    }
+  }
+});
+
+hashtagsInput.addEventListener('input', () => {
+  hashtagsInput.setCustomValidity('');
+});
+
+commentsInput.addEventListener('input', () => {
+  commentsInput.setCustomValidity('');
+});
+
+imgUploadForm.addEventListener('submit', doAllValidation);
+
