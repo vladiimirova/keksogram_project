@@ -50,3 +50,14 @@ export const randomWords = [
     "сонце",        
     "квітка"        
 ];
+
+export const valueStep = 25;
+
+export const scale = {
+    min: 25,
+    max: 100
+};
+
+export const defaultSize = 100; 
+
+export const numForDrob = 100;

@@ -12,6 +12,8 @@ import { getRandomNumber, getRandomEl } from "./utils.js";
 import { generateAllMiniatures } from "./miniature.js";
 import { showBigPicture, closePicture } from "./full-size.js";
 import { showImgForm, closeImgForm, doAllValidation } from "./form-check.js";
+import { adjustImageSize } from "./image-scale.js"
+import { updateSliderOptions, handleEffectChange } from "./image-effect.js";
 
 const fileInput = document.querySelector('#upload-file');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
@@ -20,6 +22,9 @@ const commentsInput = document.querySelector('.text__description');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const pictures = document.querySelector(".pictures");
 const bigPicture = document.querySelector(".big-picture");
+const controlSmaller = document.querySelector(".scale__control--smaller");
+const controlBigger = document.querySelector(".scale__control--bigger");
+const effectsContainer = document.querySelector('.img-upload__effects'); 
 
 function getAvatar() {
   return `img/avatar-${getRandomNumber(avatar.min, avatar.max)}.svg`;
@@ -105,3 +110,10 @@ commentsInput.addEventListener('input', () => {
 
 imgUploadForm.addEventListener('submit', doAllValidation);
 
+
+controlSmaller.addEventListener("click", adjustImageSize);
+controlBigger.addEventListener("click", adjustImageSize);
+
+effectsContainer.addEventListener('change', handleEffectChange);
+
+updateSliderOptions('none');

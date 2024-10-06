@@ -1,8 +1,13 @@
+import {  updateImageStyle } from "./image-scale.js";
+import { defaultSize } from "./constants.js";
+import { resetSlider } from "./image-effect.js";
+
 const imgUpload = document.querySelector('.img-upload');
 const imgUploadForm = imgUpload.querySelector('.img-upload__form');
 const imgUploadOverlay = imgUploadForm.querySelector('.img-upload__overlay');
 const hashtagsInput = imgUploadOverlay.querySelector('.text__hashtags');
 const commentsInput = imgUploadOverlay.querySelector('.text__description');
+const controlValue = document.querySelector(".scale__control--value");
 
 export function showImgForm() {
     imgUploadOverlay.classList.remove('hidden');  
@@ -17,6 +22,11 @@ export function closeImgForm() {
 
 function cleanForm() {
     imgUploadForm.reset();
+
+    controlValue.value = `${defaultSize}%`;
+    updateImageStyle(defaultSize); 
+    
+    resetSlider();
 }
 
 function doValidationHashtags(e) { 
