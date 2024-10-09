@@ -61,3 +61,5 @@ export const scale = {
 export const defaultSize = 100; 
 
 export const numForDrob = 100;
+
+export const maxRandomPhotos = 10;
