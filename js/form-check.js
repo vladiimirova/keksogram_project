@@ -37,7 +37,9 @@ function doValidationHashtags(e) {
         const hashtagsArray = hashtagsValue.split(' ');
         const uniqueHashtags = [];
 
-        hashtagsArray.forEach((hashtag) => {
+        hashtagsArray.forEach(function(hashtag) {
+            const lowerCaseHashtag = hashtag.toLowerCase(); 
+
             if (!hashtag.startsWith('#')) {
                 hashtagsInput.setCustomValidity('Хеш-тег повинен починатися із символу #');
                 e.preventDefault();
@@ -53,12 +55,12 @@ function doValidationHashtags(e) {
                 e.preventDefault();
                 return;
             }            
-            if (uniqueHashtags.includes(hashtag)) {
-                hashtagsInput.setCustomValidity('Один і той же хеш-тег не може бути використаний двічі');
+            if (uniqueHashtags.includes(lowerCaseHashtag)) { 
+                hashtagsInput.setCustomValidity('Один і той же хеш-тег не може бути використаний двічі (незалежно від регістру)');
                 e.preventDefault();
                 return;
             } 
-            uniqueHashtags.push(hashtag);
+            uniqueHashtags.push(lowerCaseHashtag);
         });
 
         if (uniqueHashtags.length > 5) {
@@ -67,6 +69,7 @@ function doValidationHashtags(e) {
         }
     }
 }
+
 
 function doValidationComments(e) {
     const commentsValue = commentsInput.value.trim();

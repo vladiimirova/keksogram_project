@@ -27,7 +27,7 @@ function displayComments(comments, number) {
   const commentsContainer = bigPicture.querySelector(".social__comments");
   commentsContainer.innerHTML = "";
 
-  comments.slice(0, number).forEach((comment) => {
+  comments.slice(0, number).forEach(function(comment) {
     const commentElement = document.createElement("li");
     commentElement.classList.add("social__comment");
 
@@ -64,7 +64,7 @@ function addComments(photo, number) {
     loadComments.classList.remove("hidden");
     loadComments.dataset.currentCount = number;
 
-    loadComments.onclick = () => {
+    loadComments.onclick = function() {
       const currentCount = +loadComments.dataset.currentCount;
       const newCount = Math.min(currentCount + 5, totalComments);
       addComments(photo, newCount);

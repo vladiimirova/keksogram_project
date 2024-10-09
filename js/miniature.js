@@ -19,14 +19,16 @@ function generateAllMiniatures(photosArr) {
 }
 
 export function displayMiniatures(photosArr) {
-    const existingMiniatures = pictures.querySelectorAll('.picture'); // Ищем все миниатюры
-    existingMiniatures.forEach(miniature => miniature.remove()); // Удаляем только миниатюры
+    const existingMiniatures = pictures.querySelectorAll('.picture'); 
+    existingMiniatures.forEach(function(miniature) {
+        miniature.remove();
+    });
 
     const fragment = document.createDocumentFragment();
     
-    generateAllMiniatures(photosArr).forEach((miniature) => {
+    generateAllMiniatures(photosArr).forEach(function(miniature) {
         fragment.appendChild(miniature);
     });
   
-    pictures.appendChild(fragment); // Добавляем новые миниатюры в контейнер
+    pictures.appendChild(fragment); 
 }
